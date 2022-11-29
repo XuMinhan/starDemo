@@ -17,7 +17,7 @@ if (redis.call('sismember', commentKey, userId) == 1) then
     return 1
 end
 
---3.5.下单(保存用户)sadd orderKey userId
+--3.5.(保存用户)sadd orderKey userId
 redis.call('sadd', commentKey, userId)
 --3.6.发送消息到队列当中, XADD stream.orders * k1 v1 k2 v2 ...
 redis.call('xadd','stream.orders','*','userId',userId,'content',commentContent)
